@@ -12,7 +12,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 
 public class Main {
     public static void main( String[] args ) {
-        String text = "Hello, QR Code!"; // The text to encode
+        String text = "Lorem Ipsum"; // The text to encode
         String filePath = "qrcode.png";  // Output file
 
         int width = 300;  // QR code width

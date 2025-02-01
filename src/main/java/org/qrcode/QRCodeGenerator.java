@@ -8,7 +8,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
 public class QRCodeGenerator {
-
     /**
      * Generates a QR code as a BufferedImage.
      *
