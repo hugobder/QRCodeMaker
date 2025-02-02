@@ -12,8 +12,8 @@ import java.io.*;
 public class ExcelQRCodeProcessor {
 
     public static void processExcelFile(String inputFilePath , int columnIndex ) {
-        try ( FileInputStream fis = new FileInputStream( inputFilePath );
-             Workbook workbook = new XSSFWorkbook( fis ) ) {
+        try ( FileInputStream fileInputStream = new FileInputStream( inputFilePath );
+             Workbook workbook = new XSSFWorkbook( fileInputStream ) ) {
 
             Sheet sheet = workbook.getSheetAt( 0 ); // Assuming first sheet
 
@@ -35,8 +35,8 @@ public class ExcelQRCodeProcessor {
             }
 
             // Save the modified Excel file
-            try ( FileOutputStream fos = new FileOutputStream( inputFilePath ) ) {
-                workbook.write( fos );
+            try ( FileOutputStream fileOutputStream = new FileOutputStream( inputFilePath ) ) {
+                workbook.write( fileOutputStream );
             }
 
 
@@ -48,10 +48,10 @@ public class ExcelQRCodeProcessor {
     }
 
     private static void insertImageIntoCell( Workbook workbook , Sheet sheet , File imageFile , int rowNum , int colNum ) throws IOException {
-        InputStream is = new FileInputStream( imageFile );
-        byte[] bytes = is.readAllBytes();
+        InputStream inputStream = new FileInputStream( imageFile );
+        byte[] bytes = inputStream.readAllBytes();
         int pictureIdx = workbook.addPicture( bytes , Workbook.PICTURE_TYPE_PNG );
-        is.close();
+        inputStream.close();
 
         Drawing<?> drawing = sheet.createDrawingPatriarch();
         CreationHelper helper = workbook.getCreationHelper();

@@ -15,17 +15,17 @@ public class ExcelCellResizer {
      */
     public static void resizeCell( Sheet sheet , int rowIndex , int colIndex , int widthPx , int heightPx ) {
         // Convert width from pixels to Excel column width units
-        int excelColumnWidth = (int) (widthPx / 7.0 * 256); // Approximate conversion
-        sheet.setColumnWidth(colIndex, excelColumnWidth);
+        int excelColumnWidth = ( int ) ( widthPx / 7.0 * 256 ); // Approximate conversion
+        sheet.setColumnWidth( colIndex , excelColumnWidth );
 
         // Get or create the row
-        Row row = sheet.getRow(rowIndex);
-        if (row == null) {
-            row = sheet.createRow(rowIndex);
+        Row row = sheet.getRow( rowIndex );
+        if ( row == null ) {
+            row = sheet.createRow( rowIndex );
         }
 
         // Convert height from pixels to Excel row height units
-        short excelRowHeight = (short) (heightPx * 20); // Approximate conversion
-        row.setHeight(excelRowHeight);
+        short excelRowHeight = ( short ) ( heightPx * 20 ); // Approximate conversion
+        row.setHeight( excelRowHeight );
     }
 }
