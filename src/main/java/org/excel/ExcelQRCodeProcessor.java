@@ -17,8 +17,8 @@ public class ExcelQRCodeProcessor {
 
             Sheet sheet = workbook.getSheetAt( 0 ); // Assuming first sheet
 
-            for (Row row : sheet) {
-                Cell cell = row.getCell(columnIndex);
+            for ( Row row : sheet ) {
+                Cell cell = row.getCell( columnIndex );
                 if ( cell != null && cell.getCellType() == CellType.STRING ) {
                     String cellText = cell.getStringCellValue();
 
@@ -40,7 +40,7 @@ public class ExcelQRCodeProcessor {
             }
 
 
-            System.out.println("QR Codes added successfully to the Excel file.");
+            System.out.println( "QR Codes added successfully to the Excel file." );
 
         } catch ( IOException exception ) {
             System.err.println( exception.getMessage() );
@@ -61,8 +61,11 @@ public class ExcelQRCodeProcessor {
         anchor.setCol2( colNum + 1 );
         anchor.setRow2( rowNum + 1 );
 
+        ExcelCellResizer.resizeCell( sheet , rowNum , colNum , 150 , 150 );
+
         Picture pict = drawing.createPicture( anchor , pictureIdx );
         pict.resize();
+
     }
 
 }
