@@ -11,7 +11,7 @@ import java.io.*;
 
 public class ExcelQRCodeProcessor {
 
-    public static void processExcelFile( String inputFilePath , String outputFilePath , int columnIndex ) {
+    public static void processExcelFile(String inputFilePath , int columnIndex ) {
         try ( FileInputStream fis = new FileInputStream( inputFilePath );
              Workbook workbook = new XSSFWorkbook( fis ) ) {
 
@@ -35,7 +35,7 @@ public class ExcelQRCodeProcessor {
             }
 
             // Save the modified Excel file
-            try ( FileOutputStream fos = new FileOutputStream( outputFilePath ) ) {
+            try ( FileOutputStream fos = new FileOutputStream( inputFilePath ) ) {
                 workbook.write( fos );
             }
 
