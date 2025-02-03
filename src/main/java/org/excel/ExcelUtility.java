@@ -29,6 +29,13 @@ public class ExcelUtility {
         row.setHeight( excelRowHeight );
     }
 
+
+    /**
+     * Converts an alphabetic column index to a numeric column index.
+     *
+     * @param index The alphabetic column index.
+     * @return The numeric column index.
+     */
     public static String convertIndex( String index ) {
         // Convert column index of Excel from alphabetic to numeric
         int columnIndex = 0;
