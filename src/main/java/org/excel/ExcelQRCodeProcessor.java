@@ -17,6 +17,7 @@ public class ExcelQRCodeProcessor {
 
             Sheet sheet = workbook.getSheetAt( 0 ); // Assuming first sheet
 
+            File qrFile = null;
             for ( Row row : sheet ) {
                 Cell cell = row.getCell( columnIndex );
                 if ( cell != null && cell.getCellType() == CellType.STRING ) {
@@ -24,23 +25,29 @@ public class ExcelQRCodeProcessor {
 
 
                     try {
-                        BufferedImage qrImage = QRCodeGenerator.generateQRCode( cellText , 150 , 150 );
-                        File qrFile = new File( "temp_qr.png" );
-                        ImageIO.write( qrImage, "PNG" , qrFile );
-                        insertImageIntoCell( workbook , sheet , qrFile , row.getRowNum() , columnIndex );
-                    } catch ( WriterException exception ) {
-                        System.err.println( exception.getMessage() );
+                        BufferedImage qrImage = QRCodeGenerator.generateQRCode( cellText, 150, 150 );
+                        qrFile = new File("temp_qr.png");
+                        ImageIO.write(qrImage, "PNG", qrFile);
+                        insertImageIntoCell( workbook, sheet, qrFile, row.getRowNum(), columnIndex );
+                    } catch (WriterException exception) {
+                        System.err.println(exception.getMessage());
                     }
                 }
             }
 
+            if ( qrFile != null ) {
+                if ( qrFile.delete() ) {
+                    System.err.println("Failed to delete temporary QR code image file.");
+                }
+            }
+
             // Save the modified Excel file
-            try ( FileOutputStream fileOutputStream = new FileOutputStream( inputFilePath ) ) {
-                workbook.write( fileOutputStream );
+            try (FileOutputStream fileOutputStream = new FileOutputStream(inputFilePath)) {
+                workbook.write(fileOutputStream);
             }
 
 
-            System.out.println( "QR Codes added successfully to the Excel file." );
+            System.out.println("QR Codes added successfully to the Excel file.");
 
         } catch ( IOException exception ) {
             System.err.println( exception.getMessage() );
@@ -61,7 +68,7 @@ public class ExcelQRCodeProcessor {
         anchor.setCol2( colNum + 1 );
         anchor.setRow2( rowNum + 1 );
 
-        ExcelCellResizer.resizeCell( sheet , rowNum , colNum , 150 , 150 );
+        ExcelUtility.resizeCell( sheet , rowNum , colNum , 150 , 150 );
 
         Picture pict = drawing.createPicture( anchor , pictureIdx );
         pict.resize();
